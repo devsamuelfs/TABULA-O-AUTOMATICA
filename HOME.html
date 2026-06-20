@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Operacional - Pefisa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+   <style>
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <h1>Pefisa Pernambucanas</h1>
+            <p>Painel Operacional Integrado de Atendimento</p>
+        </div>
+        <div class="top-controls">
+            <div id="searchBarContainer" class="search-container">
+                <input type="text" id="searchBar" placeholder="Pesquisar scripts...">
+            </div>
+            <button class="btn-theme" onclick="toggleTheme()" title="Alternar Tema">🌓</button>
+        </div>
+    </header>
+
+    <nav>
+        <button id="btnTabAtendimento" class="active" onclick="switchTab('atendimento')">🤝 Scripts Atendimento</button>
+        <button id="btnTabSms" onclick="switchTab('sms')">📱 SMS & E-mail</button>
+        <button id="btnTabCalc" onclick="switchTab('calc')">🧮 Calculadora</button>
+        <button id="btnTabCalendario" onclick="switchTab('calendario')">📅 Calendário</button>
+        <button id="btnTabUtilidades" onclick="switchTab('utilidades')">📞 Telefones Úteis</button>
+    </nav>
+
+    <main>
+        <section id="secAtendimento" class="section-grid">
+            <div class="tab-box" data-category="atendimento" data-search="promessa pagar cartao pefisa">
+                <div class="tab-header">
+                    <span class="tab-title">🤝 Promessa de Pagamento</span>
+                    <button class="btn-config" onclick="openModal('promessa')">Configurar</button>
+                </div>
+                <textarea id="tab_promessa">RECEPTIVO -PROMESSA DE PAGAMENTO (minimo e valor total)&#10;Cliente irá efetuar o pagamento de fatura no valor de R$ xxx,xx&#10;Para pagamento até o dia: xx/xx/xxxx&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_promessa')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="parcelamento fatura parcelar">
+                <div class="tab-header">
+                    <span class="tab-title">📊 Parcelamento de Fatura</span>
+                    <button class="btn-config" onclick="openModal('parcelamento')">Configurar</button>
+                </div>
+                <textarea id="tab_parcFatura">RECEPTIVO -PARCELAMENTO EM FATURA&#10;Cliente fez o parcelamento da fatura em X vezes no valor de R$ XXX,XX&#10;Para pagamento até o dia: xx/xx/xxxx&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_parcFatura')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="bacen acordo automatico">
+                <div class="tab-header">
+                    <span class="tab-title">🏛️ Parcelamento BACEN</span>
+                    <button class="btn-config" onclick="openModal('bacen')">Configurar</button>
+                </div>
+                <textarea id="tab_bacen">RECEPTIVO – PARCELAMENTO BACEN&#10;Como promessa de pagamento, cliente efetivará acordo automático BACEN no valor de R$ XXX,XX para pagamento até dia xx/xx.&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_bacen')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="saldo total divida acordada">
+                <div class="tab-header">
+                    <span class="tab-title">💳 Acordo Saldo Total</span>
+                    <button class="btn-config" onclick="openModal('saldo')">Configurar</button>
+                </div>
+                <textarea id="tab_saldoTotal">RECEPTIVO – AGENDAMENTO ACORDO SALDO TOTAL&#10;Cliente fez o parcelamento do saldo total em X vezes no valor de R$ XXX,XX&#10;Para pagamento até o dia: xx/xx/xxxx&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_saldoTotal')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="reneg renegociacao divida">
+                <div class="tab-header">
+                    <span class="tab-title">🔄 Acordo RENEG</span>
+                    <button class="btn-config" onclick="openModal('reneg')">Configurar</button>
+                </div>
+                <textarea id="tab_reneg">RECEPTIVO – ACORDO RENEG&#10;Cliente fez o parcelamento do saldo total (Renegociação) no valor de R$ xxx,xx&#10;em X vezes no valor de R$ XXX,XX&#10;Para pagamento até o dia: xx/xx/xxxx&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_reneg')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="arrasto a vista entrada imediato">
+                <div class="tab-header">
+                    <span class="tab-title">🚀 Arrasto - À Vista</span>
+                    <button class="btn-config" onclick="openModal('arrasto_vista')">Configurar</button>
+                </div>
+                <textarea id="tab_arrasto_vista">RECEPTIVO – ACORDO ARRASTO À VISTA&#10;Cliente fez o acordo arrasto à vista no valor de R$ xxx,xx&#10;Para pagamento até o dia: xx/xx/xxxx&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_arrasto_vista')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="arrasto parcelado entrada parcelas">
+                <div class="tab-header">
+                    <span class="tab-title">🚀 Arrasto - Parcelado</span>
+                    <button class="btn-config" onclick="openModal('arrasto_parcelado')">Configurar</button>
+                </div>
+                <textarea id="tab_arrasto_parcelado">RECEPTIVO – ACORDO ARRASTO PARCELADO&#10;Cliente fez o acordo arrasto no valor de entrada R$ XXX,XX&#10;Para pagamento da entrada até o dia: xx/xx/xxxx&#10;+ X vezes no valor de R$ XXX,XX&#10;Para pagamento até o dia: xx/xx/xxxx&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_arrasto_parcelado')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="91 dias atraso central escobs">
+                <div class="tab-header">
+                    <span class="tab-title">⚠️ Acima de 91 Dias</span>
+                    <button class="btn-config" onclick="openModal('outros')">Configurar</button>
+                </div>
+                <textarea id="tab_91dias">RECEPTIVO – ACIMA DE 91 DIAS&#10;Cliente com X dias em atraso, informado o contato da central ESCOBS (91+): 0800 941 0047 ou 0800 202 0306.</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_91dias')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="alega pago comprovante evidencias concilig">
+                <div class="tab-header">
+                    <span class="tab-title">📨 Alega Pago / Envio Comprovante</span>
+                    <button class="btn-config" onclick="openModal('outros')">Configurar</button>
+                </div>
+                <textarea id="tab_alegaPago">RECEPTIVO – ALEGA TER PAGO ENVIARA COMPROVANTE&#10;Cliente solicitou informações, e sobre débito em atraso, alega que pagou o valor de R$ xxx,xx no dia xx/xx/xxxx no cartão Pernambucanas Elo foi enviado as seguintes informações pra ela&#10;&#10;SEGUE O EMAIL PARA ENCAMINHAR O COMPROVANTE DE PAGAMENTO&#10;evidenciaspefisa@concilig.com.br&#10;NOME COMPLETO&#10;CPF&#10;DATA DE PAGAMENTO&#10;COMPROVANTE DE PAGAMENTO (ANEXO)</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_alegaPago')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="segunda via boleto fatura">
+                <div class="tab-header">
+                    <span class="tab-title">📄 Segunda Via de Boleto</span>
+                    <button class="btn-config" onclick="openModal('outros')">Configurar</button>
+                </div>
+                <textarea id="tab_segundaVia">RECEPTIVO – SEGUNDA VIA BOLETO&#10;Cliente solicitou segunda via fatura (boleto).&#10;Referente ao cartão Pernambucanas Elo</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_segundaVia')">Copiar Script</button>
+            </div>
+
+            <div class="tab-box" data-category="atendimento" data-search="fora do prazo limite sistema">
+                <div class="tab-header">
+                    <span class="tab-title">⏳ Fora do Prazo Sistêmico</span>
+                    <button class="btn-config" onclick="openModal('outros')">Configurar</button>
+                </div>
+                <textarea id="tab_foraPrazo">RECEPTIVO – FORA DO PRAZO&#10;Impossível gerar o boleto com a data solicitada, sendo necessário o pagamento imediato ou dentro do limite sistêmico.</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_foraPrazo')">Copiar Script</button>
+            </div>
+        </section>
+
+        <section id="secSms" class="section-grid hidden">
+            <div class="tab-box" data-category="sms" data-search="sms codigo barras valor">
+                <div class="tab-header"><span class="tab-title">📱 SMS - Código de Barras (Msg 1)</span></div>
+                <textarea id="sms_barras_m1">Prezado(a) cliente.&#10;Segue código de barras para pagamento no valor de R$ xxx,xx&#10;Para pagamento no dia xx/xx/xxxx&#10;A Pefisa Pernambucanas agradece a sua atenção!</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('sms_barras_m1')">Copiar SMS 1</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="sms codigo de barras numeracao">
+                <div class="tab-header"><span class="tab-title">📱 SMS - Código de Barras (Msg 2)</span></div>
+                <textarea id="sms_barras_m2">Código de barras: xxxxx xxxxx xxxxx xxxxx</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('sms_barras_m2')">Copiar SMS 2</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="sms pix chave codigo">
+                <div class="tab-header"><span class="tab-title">📱 SMS - Chave PIX (Msg 1)</span></div>
+                <textarea id="sms_pix_m1">Prezado(a) cliente.&#10;Segue código PIX para pagamento no valor de R$ xxx,xx&#10;Para pagamento no dia xx/xx/xxxx&#10;A Pefisa Pernambucanas agradece a sua atenção!</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('sms_pix_m1')">Copiar SMS Pix 1</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="sms pix copia e cola codigo">
+                <div class="tab-header"><span class="tab-title">📱 SMS - Chave PIX (Msg 2)</span></div>
+                <textarea id="sms_pix_m2">Código PIX: xxxxx xxxxx xxxxx xxxxx</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('sms_pix_m2')">Copiar SMS Pix 2</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="email envio fatura digital pefisa">
+                <div class="tab-header"><span class="tab-title">📧 E-mail - Envio de Fatura</span></div>
+                <textarea id="email_fatura">Prezado(a) cliente.&#10;Segue fatura para pagamento no valor de R$ xxx,xx. Com o vencimento no dia xx/xx/xxxx.&#10;&#10;Atenção!&#10;Certifique-se de que o código do cedente é 174 e o beneficiário final é Pefisa S.A.&#10;&#10;Em caso de dúvidas entre em contato pelos números:&#10;4004-0066 (Capitais)&#10;0800 724 8400 (Demais regiões)&#10;&#10;Se preferir, vá até uma de nossas lojas ou acesse nosso portal:&#10;https://pagamentos.pefisa.com.br&#10;&#10;A Pefisa Pernambucanas agradece a sua atenção!</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('email_fatura')">Copiar E-mail</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="email parcelamento fatura parcelas juros">
+                <div class="tab-header"><span class="tab-title">📧 E-mail - Fatura Parcelada</span></div>
+                <textarea id="email_parcelado">Prezado(a) cliente.&#10;Segue fatura para pagamento do parcelamento de (FATURA, SALDO TOTAL) em X vezes de R$ XXX,XX. Com o vencimento no dia xx/xx/xxxx.&#10;&#10;Lembrando que na segunda parcela será cobrado o juros referente aos dias em atraso!&#10;&#10;Atenção!&#10;Certifique-se de que o código do cedente é 174 e o beneficiário final é Pefisa S.A.&#10;&#10;Em caso de dúvidas entre em contato pelos números:&#10;4004-0066 (Capitais)&#10;0800 724 8400 (Demais regiões)&#10;&#10;Se preferir, vá até uma de nossas lojas ou acesse nosso portal:&#10;https://pagamentos.pefisa.com.br&#10;&#10;A Pefisa Pernambucanas agradece a sua atenção!</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('email_parcelado')">Copiar E-mail</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="email boleto acordo vencimento">
+                <div class="tab-header"><span class="tab-title">📧 E-mail - Envio de Acordo</span></div>
+                <textarea id="email_acordo">Prezado(a) cliente.&#10;Segue boleto para pagamento no valor de R$ xxx,xx. Com o vencimento no dia xx/xx/xxxx.&#10;&#10;Atenção!&#10;Certifique-se de que o código do cedente é 174 e o beneficiário final é Pefisa S.A.&#10;&#10;Em caso de dúvidas entre em contato pelos números:&#10;4004-0066 (Capitais)&#10;0800 724 8400 (Demais regiões)&#10;&#10;Se preferir, vá até uma de nossas lojas ou acesse nosso portal:&#10;https://pagamentos.pefisa.com.br&#10;&#10;A Pefisa Pernambucanas agradece a sua atenção!</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('email_acordo')">Copiar E-mail</button>
+            </div>
+
+            <div class="tab-box" data-category="sms" data-search="email renegociacao cp boleto">
+                <div class="tab-header"><span class="tab-title">📧 E-mail - Acordo CP (Renegociação)</span></div>
+                <textarea id="email_cp">Prezado(a) cliente.&#10;Segue boleto para pagamento da renegociação feita em X vezes no valor de R$ XXX,XX. Com o vencimento no dia xx/xx/xxxx.&#10;&#10;Atenção!&#10;Certifique-se de que o código do cedente é 174 e o beneficiário final é Pefisa S.A.&#10;&#10;Em caso de dúvidas entre em contato pelos números:&#10;4004-0066 (Capitais)&#10;0800 724 8400 (Demais regiões)&#10;&#10;Se preferir, vá até uma de nossas lojas ou acesse nosso portal:&#10;https://pagamentos.pefisa.com.br&#10;&#10;A Pefisa Pernambucanas agradece a sua atenção!</textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('email_cp')">Copiar E-mail</button>
+            </div>
+</section>
+
+    <div class="tab-box tab-section hidden" id="secCalc" data-category="calc">
+        <h3 class="tab-title">🧮 Calculadora Comercial (BR)</h3>
+        <div class="calc-wrapper">
+            <input type="text" id="calcDisplay" class="calc-display" value="0">
+            <div class="calc-buttons">
+                <button class="calc-btn op" onclick="clearCalc()">C</button>
+                <button class="calc-btn op" onclick="pressOp('/')">÷</button>
+                <button class="calc-btn op" onclick="pressOp('*')">×</button>
+                <button class="calc-btn op" onclick="pressOp('-')">-</button>
+
+                <button class="calc-btn" onclick="pressNum('7')">7</button>
+                <button class="calc-btn" onclick="pressNum('8')">8</button>
+                <button class="calc-btn" onclick="pressNum('9')">9</button>
+                <button class="calc-btn op" onclick="pressOp('+')">+</button>
+
+                <button class="calc-btn" onclick="pressNum('4')">4</button>
+                <button class="calc-btn" onclick="pressNum('5')">5</button>
+                <button class="calc-btn" onclick="pressNum('6')">6</button>
+                <button class="calc-btn" style="visibility:hidden;"></button>
+
+                <button class="calc-btn" onclick="pressNum('1')">1</button>
+                <button class="calc-btn" onclick="pressNum('2')">2</button>
+                <button class="calc-btn" onclick="pressNum('3')">3</button>
+                <button class="calc-btn eq" onclick="calculateResult()">=</button>
+
+                <button class="calc-btn" onclick="pressNum('0')" style="grid-column: span 2;">0</button>
+                <button class="calc-btn" onclick="pressNum(',')">,</button>
+            </div>
+            <div class="calc-history" id="calcHistoryLog"></div>
+        </div>
+    </div>
+
+        <section id="secCalendario" class="hidden">
+            <div class="calendar-wrapper">
+                <div class="calendar-nav">
+                    <button onclick="mudarMesCalendario(-1)">◀ Voltar</button>
+                    <h3 id="calendarMonthYear">Junho de 2026</h3>
+                    <button onclick="mudarMesCalendario(1)">Avançar ▶</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="weekday">Dom</div><div class="weekday">Seg</div><div class="weekday">Ter</div>
+                    <div class="weekday">Qua</div><div class="weekday">Qui</div><div class="weekday">Sex</div>
+                    <div class="weekday">Sáb</div>
+                </div>
+                <div class="calendar-grid" id="calendarDays"></div>
+            </div>
+        </section>
+
+<section id="secUtilidades" class="util-grid hidden">
+    <!-- WHATSAPP -->
+    <div class="util-card">
+        <div>
+            <h4>📱 Canais Digitais (WhatsApp)</h4>
+            <p>💬 SAC / Suporte: 3004-4441</p>
+            <p>💬 Receptivo: 4004-0066</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- CENTRAL SAC & ATENDIMENTO -->
+    <div class="util-card">
+        <div>
+            <h4>☎️ Central SAC & Atendimento</h4>
+            <p>📞 Capitais e Regiões: 4020-0091</p>
+            <p>📞 Linha Direta SAC: 0800 724 9200</p>
+            <p>📞 Apoio ao Cliente: 0800 724 8400</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- CENTRAL PERNAMBUCANAS -->
+    <div class="util-card">
+        <div>
+            <h4>🛒 Central Pernambucanas</h4>
+            <p>📞 Cartões: (11) 3004-4441 ou 0800 200 4441</p>
+            <p>📞 Varejo (Lojas): (11) 3003-9160</p>
+            <p>🌐 Portal Pagamentos: pagamentos.pefisa.com.br</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- CARMEN, CELEBRE & PALMEIRAS -->
+    <div class="util-card">
+        <div>
+            <h4>💳 Co-Branded (Parcerias Pefisa)</h4>
+            <p>👥 Carmen Steffens, Celebre! (Leroy) e Palmeiras</p>
+            <p>📞 Telefone: (11) 3003-8494 ou 0800 724 8400</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- CENTRAL DE COBRANÇA -->
+    <div class="util-card">
+        <div>
+            <h4>💸 Central de Cobrança</h4>
+            <p>📞 Geral: (11) 4004-0066 ou 0800 724 0066</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- CENTRAL ESCOBS (91+) -->
+    <div class="util-card">
+        <div>
+            <h4>⚠️ Central ESCOBS (Atraso 91+)</h4>
+            <p>📞 Telefone: 0800 941 0047</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- PARCEIROS (AXA E TOP) -->
+    <div class="util-card">
+        <div>
+            <h4>🛡️ Seguros & Transportes (Parceiros)</h4>
+            <p>🚗 Central AXA: (11) 3003-9311 ou 0800 292 1236</p>
+            <p>🚌 Central do TOP: (11) 3888-2200 ou 0800 771 1800</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+
+    <!-- OUVIDORIA -->
+    <div class="util-card">
+        <div>
+            <h4>⚖️ Ouvidoria Pefisa</h4>
+            <p>📞 Telefone: 0800 725 0001</p>
+        </div>
+        <button class="btn-copy-util">Copiar Contatos</button>
+    </div>
+</section>
+    </main>
+
+    <div class="modal-overlay" id="modalAutomacao" onclick="closeModalOutside(event)">
+        <div class="modal-box">
+            <h3 id="modalTitle">⚙️ Configurar Dados</h3>
+            <div class="modal-fields" id="modalFields">
+                </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                <button class="btn-save" onclick="processarDadosDinamicos()">Salvar e Aplicar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">📋 Texto copiado com sucesso!</div>
+	
+	<script src="script.js">
+   
+</script>
+</body>
+</html>
