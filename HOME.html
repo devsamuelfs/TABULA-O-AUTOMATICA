@@ -12,6 +12,14 @@
 </head>
 <body>
 
+    <!--
+    
+    header (
+    
+    nesse parte temos algumas informações sobre a empresa, como o nome e uma breve descrição do painel operacional. Além disso, há um campo de pesquisa para facilitar a busca por scripts específicos e um botão para alternar entre temas claro e escuro.
+    )
+    
+    -->
     <header>
         <div class="brand">
             <h1>Pefisa Pernambucanas</h1>
@@ -25,16 +33,43 @@
         </div>
     </header>
 
+
+<!-- 
+    nav (
+    nesse parte temos os botões para navegar entre as diferentes categorias de scripts.
+    basicamente aqui e area que ajuda a organizar as informaçoes como sms , calculadora, calendario e utilidades.
+    e ate as proprias tablações
+    )
+-->
+
     <nav>
-        <button id="btnTabAtendimento" class="active" onclick="switchTab('atendimento')">🤝 Scripts Atendimento</button>
+        <button id="btnTabAtendimento" class="active" onclick="switchTab('atendimento')">🤝 Tabulação e Acordos</button>
         <button id="btnTabSms" onclick="switchTab('sms')">📱 SMS & E-mail</button>
         <button id="btnTabCalc" onclick="switchTab('calc')">🧮 Calculadora</button>
         <button id="btnTabCalendario" onclick="switchTab('calendario')">📅 Calendário</button>
         <button id="btnTabUtilidades" onclick="switchTab('utilidades')">📞 Telefones Úteis</button>
     </nav>
 
+<!--
+    basicamente aqui temos a parte principal do painel, onde estão organizados os scripts de atendimento, mensagens SMS, e-mails, calculadora comercial, calendário e uma seção de utilidades com contatos importantes. Cada script tem um botão para copiar o texto diretamente para a área de transferência, facilitando o uso durante o atendimento ao cliente.
+
+-->
+
     <main>
         <section id="secAtendimento" class="section-grid">
+            <div class="tab-box tab-box-combo" data-category="atendimento" data-search="combinada multiplos varios acordos dois cartoes parcelamento e saldo">
+                <div class="tab-header">
+                    <span class="tab-title">🧩 Tabulação Combinada <span id="comboCount" class="combo-badge hidden">0</span></span>
+                    <div class="combo-actions">
+                        <button class="btn-config-secondary" onclick="removerUltimoCombo()" title="Remove o último acordo adicionado">↩️ Remover Último</button>
+                        <button class="btn-config-secondary" onclick="limparCombo()" title="Limpa tudo para começar um novo atendimento">🗑️ Limpar</button>
+                    </div>
+                </div>
+                <p class="combo-hint">Use quando o cliente fechar mais de um acordo na mesma chamada (ex: parcelamento de fatura + saldo total, ou promessa em dois cartões diferentes). Configure cada acordo normalmente nos cards abaixo e clique em "➕ Adicionar à Tabulação Combinada" dentro do modal — o texto de todos é reunido aqui.</p>
+                <textarea id="tab_combinada" readonly placeholder="Nenhum acordo adicionado ainda. Configure um acordo abaixo e use o botão 'Adicionar à Tabulação Combinada' dentro do modal."></textarea>
+                <button class="btn-copy" onclick="copiarTextoDireto('tab_combinada')">Copiar Tabulação Combinada</button>
+            </div>
+
             <div class="tab-box" data-category="atendimento" data-search="promessa pagar cartao pefisa">
                 <div class="tab-header">
                     <span class="tab-title">🤝 Promessa de Pagamento</span>
@@ -321,8 +356,12 @@
             <div class="modal-fields" id="modalFields">
                 </div>
             <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                <button class="btn-cancel" onclick="cancelModal()">Cancelar</button>
                 <button class="btn-save" onclick="processarDadosDinamicos()">Salvar e Aplicar</button>
+            </div>
+            <div class="modal-combo-divider hidden" id="modalActionsCombo">
+                <span class="combo-divider-text">Esse cliente fechou mais de um acordo nesta chamada?</span>
+                <button class="btn-add-combo" onclick="adicionarAoCombo()">➕ Adicionar à Tabulação Combinada</button>
             </div>
         </div>
     </div>

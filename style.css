@@ -526,6 +526,96 @@
 
         .btn-save:hover { background-color: var(--accent-hover); }
 
+        /* --- DIVISOR "ADICIONAR À COMBINADA" DENTRO DO MODAL --- */
+        .modal-combo-divider {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            text-align: center;
+        }
+
+        .modal-combo-divider.hidden {
+            display: none !important;
+        }
+
+        .combo-divider-text {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .btn-add-combo {
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            background-color: transparent;
+            border: 1.5px dashed var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-add-combo:hover {
+            background-color: var(--nav-active);
+        }
+
+        /* --- CARD DE TABULAÇÃO COMBINADA --- */
+        .tab-box-combo {
+            border: 1.5px dashed var(--accent) !important;
+            grid-column: 1 / -1;
+        }
+
+        .combo-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-config-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-config-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .combo-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 1px 7px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        .combo-badge.hidden {
+            display: none !important;
+        }
+
+        .combo-hint {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        #tab_combinada {
+            height: 220px;
+        }
+
         /* --- TOAST NOTIFICATION --- */
         #toast {
             position: fixed;
